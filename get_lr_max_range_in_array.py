@@ -15,32 +15,33 @@ def get_max_range(array: list, key: Callable[[int], int] = None, borders=(False,
         def key(value):
             return value
 
-    length = len(array)
     left_border, right_border = borders
-
-    stack = []
-    right = [0] * length
-    for i in range(length):
-        current_key = key(array[i])
-        while stack and (
-            current_key > stack[-1][1] or (not right_border and current_key == stack[-1][1])
-        ):
-            right[stack.pop()[0]] = i - 1
-        stack.append((i, current_key))
-    for i, _ in stack:
-        right[i] = length - 1
+    length = len(array)
 
     stack = []
     left = [0] * length
-    for i in range(length - 1, -1, -1):
-        current_key = key(array[i])
+    right = [length - 1] * length
+
+    for i, value in enumerate(array):
+        current_key = key(value)
+        minimal_left = 0
         while stack and (
-            current_key > stack[-1][1] or (not left_border and current_key == stack[-1][1])
+            current_key > stack[-1][1] or not right_border and current_key == stack[-1][1]
         ):
-            left[stack.pop()[0]] = i + 1
+            removing_index, removing_key = stack.pop()
+            right[removing_index] = i - 1
+            if removing_key == current_key:
+                minimal_left = left[removing_index] if left_border else removing_index + 1
+
+        if stack:
+            last_index, last_key = stack[-1]
+            if last_key == current_key:
+                minimal_left = left[last_index] if left_border else last_index + 1
+            else:
+                minimal_left = max(minimal_left, last_index + 1)
+
+        left[i] = minimal_left
         stack.append((i, current_key))
-    for i, _ in stack:
-        left[i] = 0
 
     return left, right
 
