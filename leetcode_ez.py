@@ -6,7 +6,7 @@ def run():
 
     func = None
     for attr_name in dir(solution):
-        if attr_name.startswith('__'):
+        if attr_name.startswith('_'):
             continue
         attr_value = getattr(solution, attr_name)
         if callable(attr_value):
