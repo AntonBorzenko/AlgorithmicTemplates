@@ -1,4 +1,4 @@
-from tasks_templates.get_lr_max_range_in_array import get_max_range, get_min_range
+from tasks_templates.arrays.get_lr_max_range_in_array import get_max_range, get_min_range
 
 
 def test__default_settings():

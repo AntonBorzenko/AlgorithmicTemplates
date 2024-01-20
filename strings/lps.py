@@ -1,4 +1,4 @@
-def get_lps(string):
+def get_lps(string: str) -> list[int]:
     result = [0] * len(string)
     size = 0
     i = 1
@@ -13,15 +13,5 @@ def get_lps(string):
         else:
             result[i] = 0
             i += 1
-
-    return result
-
-
-def get_minimal_cycle_length(string):
-    lps = get_lps(string)
-
-    result = len(string) - lps[-1]
-    if len(string) % result != 0:
-        return len(string)
 
     return result
