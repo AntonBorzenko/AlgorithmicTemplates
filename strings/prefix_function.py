@@ -1,4 +1,4 @@
-def z_function(string: str) -> list[int]:
+def prefix_function(string: str) -> list[int]:
     n = len(string)
     result = [0] * n
 
