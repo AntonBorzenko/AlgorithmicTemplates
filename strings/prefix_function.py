@@ -1,6 +1,10 @@
 def prefix_function(string: str) -> list[int]:
+    if not string:
+        return []
+
     n = len(string)
     result = [0] * n
+    result[0] = n
 
     left = 0
     right = 0
